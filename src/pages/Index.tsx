@@ -208,7 +208,8 @@ export default function Index() {
                 <Input
                   id="quantity"
                   type="number"
-                  min="1"
+                  min="100"
+                  step="100"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="100"
