@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
+import { useNavigate } from 'react-router-dom';
+import { getSettings, Material, Discount } from '@/lib/settings';
 
 const services = [
   { id: 'cards', name: 'Визитки', icon: 'CreditCard', description: 'Профессиональные визитные карточки' },
@@ -40,21 +42,24 @@ const formats = [
   { value: 'business', label: 'Визитка (90×50 мм)' },
 ];
 
-const materials = [
-  { value: 'paper80', label: 'Бумага 80 г/м²', price: 1 },
-  { value: 'paper150', label: 'Бумага 150 г/м²', price: 1.5 },
-  { value: 'glossy', label: 'Глянцевая 200 г/м²', price: 2 },
-  { value: 'matte', label: 'Матовая 250 г/м²', price: 2.5 },
-  { value: 'premium', label: 'Премиум 350 г/м²', price: 3.5 },
-];
+
 
 export default function Index() {
+  const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [productType, setProductType] = useState('');
   const [format, setFormat] = useState('');
   const [material, setMaterial] = useState('');
   const [quantity, setQuantity] = useState('100');
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
+  const [materials, setMaterials] = useState<Material[]>([]);
+  const [discounts, setDiscounts] = useState<Discount[]>([]);
+
+  useEffect(() => {
+    const settings = getSettings();
+    setMaterials(settings.materials);
+    setDiscounts(settings.discounts);
+  }, []);
 
   const calculatePrice = () => {
     const qty = parseInt(quantity) || 0;
@@ -64,9 +69,13 @@ export default function Index() {
     const basePrice = materialData.price;
     let totalPrice = qty * basePrice;
 
-    if (qty >= 1000) totalPrice *= 0.7;
-    else if (qty >= 500) totalPrice *= 0.8;
-    else if (qty >= 200) totalPrice *= 0.9;
+    const sortedDiscounts = [...discounts].sort((a, b) => b.quantity - a.quantity);
+    for (const discount of sortedDiscounts) {
+      if (qty >= discount.quantity) {
+        totalPrice *= discount.multiplier;
+        break;
+      }
+    }
 
     setCalculatedPrice(Math.round(totalPrice));
   };
@@ -83,10 +92,18 @@ export default function Index() {
               ПринтМастер
             </h1>
           </div>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-6 items-center">
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Услуги</a>
             <a href="#calculator" className="text-sm font-medium hover:text-primary transition-colors">Калькулятор</a>
             <a href="#contacts" className="text-sm font-medium hover:text-primary transition-colors">Контакты</a>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/admin')}
+              className="text-muted-foreground hover:text-primary"
+            >
+              <Icon name="Settings" className="h-4 w-4" />
+            </Button>
           </nav>
           <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90">
             <Icon name="Phone" className="mr-2 h-4 w-4" />
