@@ -96,22 +96,31 @@ export default function Index() {
       </header>
 
       <section className="container py-20 md:py-32">
-        <div className="mx-auto max-w-4xl text-center animate-fade-in">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Профессиональная печать
-          </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-            Современная типография с быстрым выполнением заказов. Высокое качество печати по доступным ценам
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg">
-              <Icon name="Calculator" className="mr-2 h-5 w-5" />
-              Рассчитать стоимость
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg">
-              <Icon name="Download" className="mr-2 h-5 w-5" />
-              Загрузить макет
-            </Button>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="animate-fade-in">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Профессиональная печать
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Современная типография с быстрым выполнением заказов. Высокое качество печати по доступным ценам
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-lg">
+                <Icon name="Calculator" className="mr-2 h-5 w-5" />
+                Рассчитать стоимость
+              </Button>
+              <Button size="lg" variant="outline" className="text-lg">
+                <Icon name="Download" className="mr-2 h-5 w-5" />
+                Загрузить макет
+              </Button>
+            </div>
+          </div>
+          <div className="relative animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <img 
+              src="https://cdn.poehali.dev/projects/2fe10ada-612c-4bba-8fcd-55a88577818a/files/a0c40a9c-19e0-4a6a-a2d1-dbac16aa6c07.jpg" 
+              alt="Профессиональная печать" 
+              className="rounded-2xl shadow-2xl w-full h-auto"
+            />
           </div>
         </div>
       </section>
@@ -233,6 +242,54 @@ export default function Index() {
             )}
           </CardContent>
         </Card>
+      </section>
+
+      <section className="container py-20 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 rounded-3xl">
+        <div className="text-center mb-12">
+          <h3 className="text-4xl md:text-5xl font-bold mb-4">Почему выбирают нас</h3>
+          <p className="text-lg text-muted-foreground">Профессионализм и качество в каждом заказе</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <Card className="text-center hover:shadow-xl transition-all">
+            <CardHeader>
+              <div className="mx-auto mb-4 relative">
+                <img 
+                  src="https://cdn.poehali.dev/projects/2fe10ada-612c-4bba-8fcd-55a88577818a/files/40837946-c6c2-4e2c-9e3f-1d6447a6b0d8.jpg"
+                  alt="Команда профессионалов"
+                  className="rounded-xl w-full h-48 object-cover"
+                />
+              </div>
+              <CardTitle>Опытная команда</CardTitle>
+              <CardDescription>Более 15 лет работы в полиграфии</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="text-center hover:shadow-xl transition-all">
+            <CardHeader>
+              <div className="mx-auto mb-4 relative">
+                <img 
+                  src="https://cdn.poehali.dev/projects/2fe10ada-612c-4bba-8fcd-55a88577818a/files/78c9aa3b-3078-4190-a71a-4131e8b80b6e.jpg"
+                  alt="Современное оборудование"
+                  className="rounded-xl w-full h-48 object-cover"
+                />
+              </div>
+              <CardTitle>Современное оборудование</CardTitle>
+              <CardDescription>Высокое качество печати</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="text-center hover:shadow-xl transition-all">
+            <CardHeader>
+              <div className="mx-auto mb-4 relative">
+                <img 
+                  src="https://cdn.poehali.dev/projects/2fe10ada-612c-4bba-8fcd-55a88577818a/files/a0c40a9c-19e0-4a6a-a2d1-dbac16aa6c07.jpg"
+                  alt="Индивидуальный подход"
+                  className="rounded-xl w-full h-48 object-cover"
+                />
+              </div>
+              <CardTitle>Индивидуальный подход</CardTitle>
+              <CardDescription>Решение для каждого клиента</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </section>
 
       <section id="contacts" className="container py-20">
